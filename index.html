@@ -5,10 +5,19 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" >
     <title>Bay Depot</title>
     <link href="style.css" rel="stylesheet">
-    <script defer src="barcode.js"></script>
+    <script src="barcode.js"></script>
     <script defer src="script.js"></script>
   </head>
   <body>
-    <svg id="barcode"></svg>
+    <div class="barcode-container">
+      <svg id="barcode"></svg>
+    </div>
+    <div class="tag">
+      <input id="tag-aisle" placeholder="Aisle" type="text">
+      <input id="tag-bay" placeholder="Bay" type="text">
+    </div>
+    <div class="generate-container">
+      <button id="generate">Generate</button>
+    </div>
   </body>
 </html>
