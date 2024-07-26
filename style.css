@@ -1,0 +1,13 @@
+root {
+
+}
+
+body , html {
+  background: rgba( 255 , 255 , 0 , 1 );
+  color: rgba( 0 , 0 , 0 , 1 );
+  height: 100 vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100vw;
+}
