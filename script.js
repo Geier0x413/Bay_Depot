@@ -1,3 +1,5 @@
+alert( "Script loaded!" );
+
 window.addEventListener( "load" , () => {
   JsBarcode( "#barcode" , "9809000000-05-002" , {
     background: "#ff0000",
