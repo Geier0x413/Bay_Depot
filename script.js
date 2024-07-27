@@ -5,8 +5,8 @@ const tag = {
 };
 
 function baytag( aisle , bay ) {
-  aisle = `${ aisle }`.toUpperCase().padStart( 2 , "0" );
-  bay = `${ bay }`.toUpperCase().padStart( 3 , "0" );
+  aisle = `${ aisle || "" }`.toUpperCase().padStart( 2 , "0" );
+  bay = `${ bay || "" }`.toUpperCase().padStart( 3 , "0" );
 
   JsBarcode( "#barcode" , `9809000000-${ aisle }-${ bay }` , {
     background: "#ffff00",
@@ -20,23 +20,32 @@ function baytag( aisle , bay ) {
   return { "aisle": aisle , "bay": bay };
 }
 
-// aisle.addEventListener( "input" , function( event ) {
-//   console.log( event.data );
-//   this.format( event.data );
-//   baytag( this.value , bay.value );
-// } );
+tag.aisle.addEventListener( "input" , function( event ) {
+  if ( event.inputType.includes( "deleteContentBackward" ) ) {
+    this.realValue = this.realValue.substring( 0 , this.realValue.length - 1 );
+  } else {
+    this.realValue = ( this.realValue || "" ) + event.data;
+  }
 
-// bay.addEventListener( "input" , function( event ) {
-//   console.log( event.data );
-//   this.format( event.data );
-//   baytag( aisle.value , this.value );
-// } );
+  this.value = `${ this.realValue }`.toUpperCase().padStart( 2 , "0" );
 
-generate.addEventListener( "click" , function() {
-  const { aisle , bay } = baytag( tag.aisle.value , tag.bay.value );
-  tag.aisle.value = aisle;
-  tag.bay.value = bay;
+  baytag( tag.aisle.value , tag.bay.value );
 } );
+
+tag.bay.addEventListener( "input" , function( event ) {
+  if ( event.inputType.includes( "deleteContentBackward" ) ) {
+    this.realValue = this.realValue.substring( 0 , this.realValue.length - 1 );
+  } else {
+    this.realValue = ( this.realValue || "" ) + event.data;
+  }
+
+  this.value = `${ this.realValue }`.toUpperCase().padStart( 3 , "0" );
+
+  baytag( tag.aisle.value , tag.bay.value );
+} );
+
+tag.aisle.addEventListener( "click" , function() { this.select() } );
+tag.bay.addEventListener( "click" , function() { this.select() } );
 
 for ( let i = 1; i <= 65; i++ ) {
   for ( let j = 1; j <= 22; j++ ) {
