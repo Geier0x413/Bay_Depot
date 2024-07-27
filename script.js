@@ -1,7 +1,6 @@
 const tag = {
   "aisle": document.querySelector( "#tag-aisle" ),
-  "bay": document.querySelector( "#tag-bay" ),
-  "generate": document.querySelector( "#generate" ),
+  "bay": document.querySelector( "#tag-bay" )
 };
 
 function baytag( aisle , bay ) {
@@ -20,32 +19,26 @@ function baytag( aisle , bay ) {
   return { "aisle": aisle , "bay": bay };
 }
 
-tag.aisle.addEventListener( "input" , function( event ) {
-  if ( event.inputType.includes( "deleteContentBackward" ) ) {
-    this.realValue = this.realValue.substring( 0 , this.realValue.length - 1 );
-  } else {
-    this.realValue = ( this.realValue || "" ) + event.data;
-  }
+[ tag.aisle , tag.bay ].forEach( tag => {
+  tag.addEventListener( "input" , function( event ) {
+    if ( event.inputType.includes( "deleteContentBackward" ) ) {
+      this.realValue = this.realValue.substring( 0 , this.realValue.length - 1 );
+    } else {
+      this.realValue = ( this.realValue || "" ) + event.data;
+    }
+  
+    this.value = `${ this.realValue }`.toUpperCase().padStart( tag.max , "0" );
 
-  this.value = `${ this.realValue }`.toUpperCase().padStart( 2 , "0" );
-
-  baytag( tag.aisle.value , tag.bay.value );
+    baytag( ( !this.name.includes( "aisle" ) ? this.previousElementSibling : this ).value , ( !this.name.includes( "bay" ) ? this.nextElementSibling : this ).value );
+  } );
 } );
 
-tag.bay.addEventListener( "input" , function( event ) {
-  if ( event.inputType.includes( "deleteContentBackward" ) ) {
-    this.realValue = this.realValue.substring( 0 , this.realValue.length - 1 );
-  } else {
-    this.realValue = ( this.realValue || "" ) + event.data;
-  }
-
-  this.value = `${ this.realValue }`.toUpperCase().padStart( 3 , "0" );
-
-  baytag( tag.aisle.value , tag.bay.value );
+[ tag.aisle , tag.bay ].forEach( tag => {
+  tag.addEventListener( "click" , function() {
+    this.realValue = "";
+    this.select();
+  } );
 } );
-
-tag.aisle.addEventListener( "click" , function() { this.select() } );
-tag.bay.addEventListener( "click" , function() { this.select() } );
 
 for ( let i = 1; i <= 65; i++ ) {
   for ( let j = 1; j <= 22; j++ ) {
