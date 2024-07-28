@@ -3,17 +3,12 @@ const tag = {
   "bay": document.querySelector( "#bay" )
 };
 
-// function formatTag( aisle , bay ) {
-//   aisle = !isNaN( aisle[ 0 ] ) ? `${ aisle || "" }`.toUpperCase().padStart( 2 , "0" ) : aisle.toUpperCase();
-//   bay = !isNaN( bay[ 0 ] ) ? `${ bay || "" }`.toUpperCase().padStart( 3 , "0" ) : bay.toUpperCase();
+function formatTag( tag , max ) {
+  tag = `${ tag || "" }`.toUpperCase();
+  return !isNaN( tag[ 0 ] ) ? tag.padStart( max , "0" ) : tag;
+}
 
-//   return { "aisle": aisle , "bay": bay };
-// }
-
-function baytag( aisle , bay ) {
-  aisle = `${ aisle || "" }`.toUpperCase().padStart( 2 , "0" );
-  bay = `${ bay || "" }`.toUpperCase().padStart( 3 , "0" );
-
+function barcode( aisle , bay ) {
   JsBarcode( "#barcode" , `9809000000-${ aisle }-${ bay }` , {
     background: "#ffff00",
     displayValue: false,
@@ -22,8 +17,13 @@ function baytag( aisle , bay ) {
     lineColor: "#000000",
     width: 2
   } );
+}
 
-  return { "aisle": aisle , "bay": bay };
+function baytag( aisle , bay ) {
+  aisle = formatTag( aisle , 2 );
+  bay = formatTag( bay , 3 );
+
+  barcode( aisle , bay );
 }
 
 [ tag.aisle , tag.bay ].forEach( tag => {
@@ -31,10 +31,10 @@ function baytag( aisle , bay ) {
     if ( event.inputType.includes( "deleteContentBackward" ) ) {
       this.realValue = this.realValue.substring( 0 , this.realValue.length - 1 );
     } else {
-      this.realValue = ( this.realValue || "" ) + event.data;
+      if ( this.realValue.length < Number( tag.max ) ) this.realValue = ( this.realValue || "" ) + event.data;
     }
 
-    this.value = `${ this.realValue }`.toUpperCase().padStart( tag.max , "0" );
+    this.value = formatTag( this.realValue , tag.max );
 
     baytag( ( !this.name.includes( "aisle" ) ? this.previousElementSibling : this ).value , ( !this.name.includes( "bay" ) ? this.nextElementSibling : this ).value );
   } );
@@ -47,12 +47,10 @@ function baytag( aisle , bay ) {
   } );
 } );
 
-// for ( let i = 1; i <= 65; i++ ) {
-//   for ( let j = 1; j <= 22; j++ ) {
-//     setTimeout( () => {
-//       baytag( i , j  );
-//     } , 16 * i );
-//   }
-// }
-
-baytag( 4 , 5 );
+for ( let i = 1; i <= 65; i++ ) {
+  for ( let j = 1; j <= 22; j++ ) {
+    setTimeout( () => {
+      baytag( i , j  );
+    } , 16 * i );
+  }
+}
