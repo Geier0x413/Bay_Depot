@@ -1,6 +1,6 @@
 const tag = {
-  "aisle": document.querySelector( "#tag-aisle" ),
-  "bay": document.querySelector( "#tag-bay" )
+  "aisle": document.querySelector( "#aisle" ),
+  "bay": document.querySelector( "#bay" )
 };
 
 // function formatTag( aisle , bay ) {

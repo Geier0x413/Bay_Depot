@@ -4,10 +4,7 @@ body , html {
   align-items: center;
   background: rgba( 255 , 255 , 0 , 1 );
   color: rgba( 0 , 0 , 0 , 1 );
-  display: grid;
-  grid-template:
-    "barcode barcode"
-    "aisle bay";
+  display: flex;
   height: 100 vh;
   justify-content: center;
   margin: 0;
@@ -16,27 +13,24 @@ body , html {
   width: 100vw;
 }
 
-#barcode { grid-area: barcode }
-#tag_aisle { grid-area: aisle }
-#tag_bay { grid-area: bay }
-
-#barcode , #tag_aisle , #tag_bay { max-width: 100vw }
-
-#barcode {
-  width: 100vw;
+.tag {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: fixed;
 }
 
 input {
-  background: none;
-  border: 2px solid rgba( 0 , 0 , 0 , 1 );
-  border-radius: 4px;
+  background: rgba( 255 , 255 , 0 , 1 );
+  border: none;
   color: rgba( 0 , 0 , 0 , 1 );
-  font-size: 3vw;
+  font-size: 1.8vw;
   height: 48px;
-  margin: 0 4px;
+  margin: 0 8px;
   outline: none;
   padding: 0 4px;
   text-align: center;
+  width: 64px;
 }
 
 input::placeholder { color: rgba( 0 , 0 , 0 , 1 ); }
