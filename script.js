@@ -3,6 +3,13 @@ const tag = {
   "bay": document.querySelector( "#tag-bay" )
 };
 
+// function formatTag( aisle , bay ) {
+//   aisle = !isNaN( aisle[ 0 ] ) ? `${ aisle || "" }`.toUpperCase().padStart( 2 , "0" ) : aisle.toUpperCase();
+//   bay = !isNaN( bay[ 0 ] ) ? `${ bay || "" }`.toUpperCase().padStart( 3 , "0" ) : bay.toUpperCase();
+
+//   return { "aisle": aisle , "bay": bay };
+// }
+
 function baytag( aisle , bay ) {
   aisle = `${ aisle || "" }`.toUpperCase().padStart( 2 , "0" );
   bay = `${ bay || "" }`.toUpperCase().padStart( 3 , "0" );
@@ -26,7 +33,7 @@ function baytag( aisle , bay ) {
     } else {
       this.realValue = ( this.realValue || "" ) + event.data;
     }
-  
+
     this.value = `${ this.realValue }`.toUpperCase().padStart( tag.max , "0" );
 
     baytag( ( !this.name.includes( "aisle" ) ? this.previousElementSibling : this ).value , ( !this.name.includes( "bay" ) ? this.nextElementSibling : this ).value );
@@ -40,10 +47,12 @@ function baytag( aisle , bay ) {
   } );
 } );
 
-for ( let i = 1; i <= 65; i++ ) {
-  for ( let j = 1; j <= 22; j++ ) {
-    setTimeout( () => {
-      baytag( i , j  );
-    } , 16 * i );
-  }
-}
+// for ( let i = 1; i <= 65; i++ ) {
+//   for ( let j = 1; j <= 22; j++ ) {
+//     setTimeout( () => {
+//       baytag( i , j  );
+//     } , 16 * i );
+//   }
+// }
+
+baytag( 4 , 5 );

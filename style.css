@@ -1,46 +1,44 @@
 root { }
 
 body , html {
+  align-items: center;
   background: rgba( 255 , 255 , 0 , 1 );
   color: rgba( 0 , 0 , 0 , 1 );
+  display: grid;
+  grid-template:
+    "barcode barcode"
+    "aisle bay";
   height: 100 vh;
+  justify-content: center;
   margin: 0;
   overflow: hidden;
   padding: 0;
   width: 100vw;
 }
 
-.barcode-container , .generate-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+#barcode { grid-area: barcode }
+#tag_aisle { grid-area: aisle }
+#tag_bay { grid-area: bay }
+
+#barcode , #tag_aisle , #tag_bay { max-width: 100vw }
+
+#barcode {
+  width: 100vw;
 }
 
-.tag , .generate-container {
-  align-items: center;
-  display: flex;
-  height: 64px;
-  justify-content: center;
-  margin: 0;
-  padding: 4px 0;
-  width: 100%
-}
-
-.tag > input {
+input {
   background: none;
   border: 2px solid rgba( 0 , 0 , 0 , 1 );
   border-radius: 4px;
   color: rgba( 0 , 0 , 0 , 1 );
-  font-size: 2.4em;
-  height: 100%;
-  margin: 0 2px;
+  font-size: 3vw;
+  height: 48px;
+  margin: 0 4px;
   outline: none;
-  padding: 0;
+  padding: 0 4px;
   text-align: center;
-  width: 174px;
 }
 
-.tag > input::placeholder { color: rgba( 0 , 0 , 0 , 1 ); }
+input::placeholder { color: rgba( 0 , 0 , 0 , 1 ); }
 
-.tag > input::selection { background: none; }
+input::selection { background: none; }
