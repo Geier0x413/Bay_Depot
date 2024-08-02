@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BarcodeDetector</title>
+  <script defer>
+    // check compatibility
+    if ( !( "BarcodeDetector" in globalThis ) ) {
+      console.log( "Barcode Detector is not supported by this browser." );
+    } else {
+      console.log( "Barcode Detector supported!" );
+
+      // create new detector
+      const barcodeDetector = new BarcodeDetector( { formats: [ "code_128" ] } );
+      barcodeDetector.detect( document.querySelector( "#barcode" ) ).then(( barcodes ) => {
+        barcodes.forEach( barcode => console.log( barcode.rawValue ) );
+      } ).catch( err => {
+        console.log(err);
+      });
+    }
+  </script>
+</head>
+<body>
+  <canvas id="barcode"></canvas>
+</body>
+</html>
