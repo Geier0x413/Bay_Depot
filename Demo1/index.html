@@ -7,16 +7,16 @@
   <script defer>
     // check compatibility
     if ( !( "BarcodeDetector" in globalThis ) ) {
-      console.log( "Barcode Detector is not supported by this browser." );
+      document.body.innerText = "Barcode Detector is not supported by this browser.\b";
     } else {
-      console.log( "Barcode Detector supported!" );
+      document.body.innerText = "Barcode Detector supported!\b";
 
       // create new detector
       const barcodeDetector = new BarcodeDetector( { formats: [ "code_128" ] } );
       barcodeDetector.detect( document.querySelector( "#barcode" ) ).then(( barcodes ) => {
-        barcodes.forEach( barcode => document.body.innerText += `${ barcode.rawValue }` );
+        barcodes.forEach( barcode => document.body.innerText += `${ barcode.rawValue }\b` );
       } ).catch( err => {
-        document.body.innerText = `${ err }`;
+        document.body.innerText = `${ err }\b`;
       });
     }
   </script>
