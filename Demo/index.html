@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode API Test</title>
+    <script type="text/javascript" charset="utf-8" src="ebapi-modules.js"></script>
+    <script type="text/javascript">
+        function scanReceived(params){
+            // No data or no timestamp, scan failed.
+            if(params['data']== "" || params['time']==""){
+                document.getElementById('display').innerHTML = "Failed!";
+                return;
+            }
+            // Data and timestamp exist, barcode successful, show results
+            var displayStr = "Barcode Data: " + params['data']+"<br>Time: "+params['time'];
+            document.getElementById("display").innerHTML = displayStr;
+        }
+  
+        function enableScanners(){
+            EB.Barcode.enable({}, scanReceived);
+            // Empty property hash, '{}' loads default values for the scanner.
+        }
+  
+        function unloadEvent(){
+            EB.Barcode.disable();
+            // Disable Barcode on unload of page to free it up for other operations.
+        }
+    </script>
+  </head>
+  
+  <body onunload='unloadEvent()'>
+    <h1>Barcode API Test</h1>
+    <div id="display">
+        Barcode Data: <br>
+        Time: <br>
+    </div>
+    <button onclick="enableScanners()">Enable Barcode Scanners</button>
+  </body>  
+</html>
